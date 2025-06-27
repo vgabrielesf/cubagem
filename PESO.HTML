@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora Técnica - Peso de Mesa Inox</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/190/190411.png">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --bg: #f8fafc;
+      --card-bg: #fff;
+      --border: #cbd5e1;
+      --text: #1e293b;
+      --muted: #64748b;
+      --accent: #0ea5e9;
+      --danger: #ef4444;
+      --success: #22c55e;
+    }
+    body {
+      background: var(--bg);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .container {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 24px #0001;
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      max-width: 900px;
+      width: 100%;
+      border: 1px solid var(--border);
+      margin: 2.5rem 0;
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    .form-content {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+    .header img {
+      width: 48px;
+      height: 48px;
+    }
+    .header-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-dark);
+      letter-spacing: 1px;
+    }
+    form {
+      margin-top: 1rem;
+      flex: 2 1 0;
+      min-width: 0;
+    }
+    fieldset {
+      border: none;
+      margin: 0 0 1.5rem 0;
+      padding: 0;
+    }
+    legend {
+      color: var(--primary-dark);
+      font-weight: bold;
+      font-size: 1.07rem;
+      margin-bottom: 0.7rem;
+      letter-spacing: 0.5px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.1rem 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .grid label {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.98rem;
+      color: var(--text);
+      font-weight: 500;
+      gap: 0.2rem;
+    }
+    .grid input, .grid select {
+      padding: 0.45rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 1rem;
+      background: #f1f5f9;
+      color: var(--text);
+      transition: border 0.2s;
+    }
+    .grid input:focus, .grid select:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+    .section-title {
+      color: var(--muted);
+      font-size: 1.02rem;
+      font-weight: 600;
+      margin: 1.2rem 0 0.5rem 0;
+      letter-spacing: 0.5px;
+      border-left: 3px solid var(--primary);
+      padding-left: 0.5rem;
+    }
+    button[type="submit"] {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.9rem 0;
+      font-size: 1.13rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 0.7rem;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px #2563eb22;
+      letter-spacing: 0.5px;
+    }
+    button[type="submit"]:hover {
+      background: var(--primary-dark);
+    }
+    .resultado {
+      margin-top: 2.2rem;
+      background: #f1f5f9;
+      border: 1.5px solid var(--primary);
+      border-radius: 10px;
+      padding: 1.5rem 1rem;
+      color: var(--text);
+      font-size: 1.13rem;
+      box-shadow: 0 2px 8px #0001;
+      text-align: center;
+      animation: fadeIn 0.5s;
+    }
+    .resultado b {
+      color: var(--primary-dark);
+      font-size: 1.18rem;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @media (max-width: 650px) {
+      .container { padding: 1.2rem 0.5rem; max-width: 99vw;}
+      .header-title { font-size: 1.1rem;}
+      .grid { grid-template-columns: 1fr; }
+    }
+    .imagem-lateral {
+      flex: 0 0 380px;         /* aumenta a largura da lateral */
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;      /* Alinha à direita */
+      justify-content: flex-end;  /* Alinha para baixo */
+      gap: 1.2rem;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      position: static;
+    }
+    .imagem-lateral img {
+      width: 400px;
+      max-width: 100%;
+      height: 400px;
+      max-height: 420px;
+      border-radius: 0 12px 12px 0;
+      box-shadow: 0 2px 8px #0001;
+      background: transparent;
+      object-fit: contain;
+      margin-top: 100px; /* Espaço de 100px acima da imagem */
+    }
+    .imagem-lateral .resultado {
+      margin-top: 1.2rem;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    body.dark {
+      --primary: #60a5fa;
+      --primary-dark: #2563eb;
+      --bg: #18181b;
+      --card-bg: #23232b;
+      --border: #334155;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --danger: #ef4444;
+      --success: #22c55e;
+    }
+    body.dark {
+      background: var(--bg);
+    }
+    body.dark .container {
+      background: var(--card-bg);
+      border-color: var(--border);
+      box-shadow: 0 4px 24px #0008;
+    }
+    body.dark .header-title,
+    body.dark .section-title,
+    body.dark legend,
+    body.dark .grid label {
+      color: var(--text);
+    }
+    body.dark .resultado {
+      background: #1e293b;
+      color: var(--text);
+      border-color: var(--primary);
+    }
+    body.dark input,
+    body.dark select {
+      background: #18181b;
+      color: var(--text);
+      border-color: var(--border);
+    }
+    body.dark input:focus,
+    body.dark select:focus {
+      border-color: var(--primary);
+    }
+    body.dark footer {
+      background: #23232b;
+      color: #94a3b8;
+      border-top: 1px solid #334155;
+    }
+    body.dark #toggle-dark {
+      background: #fff;
+      color: #23232b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form-content">
+      <div class="header">
+        <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Mesa Inox">
+        <span class="header-title">Calculadora Técnica de Peso e Volume<br><span style="font-size:0.93rem;font-weight:400;color:var(--muted)">Mesa de Trabalho Inox</span></span>
+      </div>
+      <form id="form" autocomplete="off">
+        <fieldset>
+          <legend>Dimensões Gerais</legend>
+          <div class="grid">
+            <label for="comprimento">Comprimento (mm)
+              <input type="number" id="comprimento" required>
+            </label>
+            <label for="largura">Largura (mm)
+              <input type="number" id="largura" required>
+            </label>
+            <label for="altura">Altura (mm)
+              <input type="number" id="altura" required>
+            </label>
+            <label for="rodobanca">Rodobanca (mm)
+              <input type="number" id="rodobanca" required>
+            </label>
+            <label for="espessuraTampo">Espessura do tampo (mm)
+              <input type="number" id="espessuraTampo" step="0.1" value="1" required>
+            </label>
+            <label for="espessuraSaiote">Espessura do saiote (mm)
+              <input type="number" id="espessuraSaiote" step="0.1" value="0.8" required>
+            </label>
+            <label for="espessuraReforco">Espessura dos reforços (mm)
+              <input type="number" id="espessuraReforco" step="0.1" value="0.8" required>
+            </label>
+            <label for="quantidadeMesas">Qtd. de mesas
+              <input type="number" id="quantidadeMesas" value="1" required>
+            </label>
+          </div>
+        </fieldset>
+
+        <div class="section-title">Prateleira</div>
+        <div class="grid">
+          <label for="temPrateleira">Possui prateleira?
+            <select id="temPrateleira">
+              <option value="SIM">SIM</option>
+              <option value="NÃO" selected>NÃO</option>
+            </select>
+          </label>
+          <div id="prateleiraFields" style="display:none;">
+            <label for="espessuraPrateleira">Espessura prateleira (mm)
+              <input type="number" id="espessuraPrateleira" step="0.1" value="0.8">
+            </label>
+            <label for="numeroPlanos">Número de planos
+              <input type="number" id="numeroPlanos" value="1">
+            </label>
+          </div>
+        </div>
+
+        <div class="section-title">Cuba</div>
+        <div class="grid">
+          <label for="temCuba">Possui cuba?
+            <select id="temCuba">
+              <option value="SIM">SIM</option>
+              <option value="NÃO" selected>NÃO</option>
+            </select>
+          </label>
+          <div id="cubaFields" style="display:none;">
+            <label for="comprimentoCuba">Comprimento cuba (mm)
+              <input type="number" id="comprimentoCuba" value="0" min="0">
+            </label>
+            <label for="larguraCuba">Largura cuba (mm)
+              <input type="number" id="larguraCuba" value="0" min="0">
+            </label>
+            <label for="profundidadeCuba">Profundidade cuba (mm)
+              <input type="number" id="profundidadeCuba" value="0" min="0">
+            </label>
+            <label for="quantidadeCuba">Qtd. cuba
+              <input type="number" id="quantidadeCuba" value="0" min="0">
+            </label>
+          </div>
+        </div>
+
+        <button type="submit">Calcular</button>
+      </form>
+    </div>
+    <div class="imagem-lateral">
+      <img src="mesadetrabalho.PNG" alt="Mesa de Trabalho Inox" />
+    <div class="resultado" id="resultado" style="color:#2563eb;font-weight:bold;">Resultado</div>
+    </div>
+  </div>
+  <button id="toggle-dark" style="position:absolute;top:18px;right:24px;z-index:20;background:#222;color:#fff;border:none;padding:0.5rem 1rem;border-radius:6px;cursor:pointer;">
+    🌙 Tema Escuro
+  </button>
+  <script>
+    // Mostrar/ocultar campos de prateleira
+    function togglePrateleiraFields() {
+      const show = document.getElementById('temPrateleira').value === 'SIM';
+      document.getElementById('prateleiraFields').style.display = show ? 'block' : 'none';
+      document.getElementById('espessuraPrateleira').required = show;
+      document.getElementById('numeroPlanos').required = show;
+    }
+    // Mostrar/ocultar campos de cuba
+    function toggleCubaFields() {
+      const show = document.getElementById('temCuba').value === 'SIM';
+      document.getElementById('cubaFields').style.display = show ? 'block' : 'none';
+      document.getElementById('comprimentoCuba').required = show;
+      document.getElementById('larguraCuba').required = show;
+      document.getElementById('profundidadeCuba').required = show;
+      document.getElementById('quantidadeCuba').required = show;
+    }
+    document.getElementById('temPrateleira').addEventListener('change', togglePrateleiraFields);
+    document.getElementById('temCuba').addEventListener('change', toggleCubaFields);
+    togglePrateleiraFields();
+    toggleCubaFields();
+
+    document.getElementById('form').onsubmit = function(e) {
+      e.preventDefault();
+
+      // Pega os valores do formulário
+      const comprimento = Number(document.getElementById('comprimento').value);
+      const largura = Number(document.getElementById('largura').value);
+      const altura = Number(document.getElementById('altura').value);
+      const rodobanca = Number(document.getElementById('rodobanca').value);
+      const espessuraTampo = Number(document.getElementById('espessuraTampo').value);
+      const espessuraSaiote = Number(document.getElementById('espessuraSaiote').value);
+      const espessuraReforco = Number(document.getElementById('espessuraReforco').value);
+      const quantidadeMesas = Number(document.getElementById('quantidadeMesas').value);
+
+      const temPrateleira = document.getElementById('temPrateleira').value === 'SIM';
+      const espessuraPrateleira = Number(document.getElementById('espessuraPrateleira').value) || 0;
+      const numeroPlanos = Number(document.getElementById('numeroPlanos').value) || 0;
+
+      const temCuba = document.getElementById('temCuba').value === 'SIM';
+      const comprimentoCuba = Number(document.getElementById('comprimentoCuba').value) || 0;
+      const larguraCuba = Number(document.getElementById('larguraCuba').value) || 0;
+      const profundidadeCuba = Number(document.getElementById('profundidadeCuba').value) || 0;
+      const quantidadeCuba = Number(document.getElementById('quantidadeCuba').value) || 0;
+
+      const densidadeAcoInox304 = 8000;
+
+      // Cálculos principais (simplificados)
+      const resultadoComprimento = (comprimento + rodobanca * 2 + 10 + 130);
+      const resultadoLargura = (largura + rodobanca * 2 + 20);
+      const resultadoVolumeTampo = (resultadoLargura * resultadoComprimento + espessuraTampo) / 1000000000;
+      const resultadoPesoTampo = (resultadoVolumeTampo * densidadeAcoInox304);
+
+      const resultadoComprimentoSaiote = (comprimento - 23);
+      const resultadoLarguraSaiote = (largura - 23);
+      const resultadoComprimentoPlanificadoSaiote = (resultadoComprimentoSaiote + resultadoLarguraSaiote);
+      const resultadoLarguraPlanificadoSaiote = (rodobanca + 10 + 85);
+      const resultadoVolumeSaiote = (resultadoComprimentoPlanificadoSaiote * resultadoLarguraPlanificadoSaiote * espessuraSaiote) / 1000000000;
+      const resultadoPesoSaiote = (resultadoVolumeSaiote * densidadeAcoInox304);
+
+      const resultadoComprimentoReforcoTampo = (resultadoComprimento - 123);
+      const resultadoLarguraPlanificadoReforcoTampo = 150;
+      const resultadoVolumeReforcoTampo = (resultadoComprimentoReforcoTampo * resultadoLarguraPlanificadoReforcoTampo * espessuraReforco);
+
+      let unidadesReforco = resultadoComprimento < 1150 ? 1 : Math.floor((resultadoComprimento - 1150) / 500) + 1;
+      const resultadoPesoReforcoTampoGeral = (resultadoVolumeReforcoTampo * densidadeAcoInox304 * unidadesReforco) / 1000000000;
+
+      let unidadesPe = resultadoComprimento < 2299 ? 4 : 6;
+      const resultadoPesoPeUnd = (altura * 0.0011);
+      const resultadoPesoPeGeral = unidadesPe * resultadoPesoPeUnd;
+
+      // Prateleira só se SIM
+      let resultadoPesoPrat = 0;
+      let resultadoPesoReforcoPrat = 0;
+      if (temPrateleira) {
+        const resultandoComprimentoPrat = (comprimento - 92 + 20 + 60);
+        const resultadoLarguraPrat = (largura - 92 + 80);
+        const resultadoVolumePrat = (resultandoComprimentoPrat * resultadoLarguraPrat * espessuraPrateleira);
+        resultadoPesoPrat = (resultadoVolumePrat * densidadeAcoInox304 / 1000000000 * numeroPlanos);
+
+        const resultadoComprimentoReforcoPrat = (resultadoComprimento - 92);
+        const resultadoLarguraReforcoPrat = 172;
+        const resultadoVolumeReforcoPrat = (resultadoComprimentoReforcoPrat * resultadoLarguraReforcoPrat * espessuraReforco);
+        resultadoPesoReforcoPrat = ((resultadoVolumeReforcoPrat * densidadeAcoInox304) / 1000000000) * numeroPlanos;
+      }
+
+      // Cuba só se SIM
+      let resultadoPesoCuba = 0;
+      if (temCuba) {
+        // Cálculo simplificado da cuba (ajuste conforme necessário)
+        const areaCuba = (comprimentoCuba * larguraCuba + 2 * comprimentoCuba * profundidadeCuba + 2 * larguraCuba * profundidadeCuba);
+        const volumeCuba = areaCuba * 1; // espessura 1mm
+        resultadoPesoCuba = ((volumeCuba * densidadeAcoInox304) / 1000000000) * quantidadeCuba;
+      }
+
+      let resultadoPesoIndividual = resultadoPesoTampo + resultadoPesoSaiote + resultadoPesoReforcoTampoGeral + resultadoPesoPeGeral + resultadoPesoPrat + resultadoPesoReforcoPrat;
+      if (temCuba) {
+        resultadoPesoIndividual += resultadoPesoCuba;
+        resultadoPesoIndividual -= 1;
+      }
+      if (!temPrateleira) {
+        resultadoPesoIndividual -= (resultadoPesoIndividual * 0.17);
+      }
+      const resultadoPesoTotal = resultadoPesoIndividual * quantidadeMesas;
+      const resultadoVolumeIndividual = (((altura + 100) / 1000) * (comprimento / 1000) * (largura / 1000));
+      const resultadoVolumeTotal = resultadoVolumeIndividual * quantidadeMesas;
+
+      document.getElementById('resultado').innerHTML = `
+        <b>Peso Individual (Kg):</b> ${resultadoPesoIndividual.toFixed(3)}<br>
+        <b>Peso Total (Kg):</b> ${resultadoPesoTotal.toFixed(3)}<br>
+        <b>Volume Individual (m³):</b> ${resultadoVolumeIndividual.toFixed(3)}<br>
+        <b>Volume Total (m³):</b> ${resultadoVolumeTotal.toFixed(3)}
+      `;
+    };
+
+    // Tema escuro
+    const btn = document.getElementById('toggle-dark');
+    btn.onclick = function() {
+      document.body.classList.toggle('dark');
+      btn.textContent = document.body.classList.contains('dark') ? '☀️ Tema Claro' : '🌙 Tema Escuro';
+    };
+  </script>
+  <footer style="width:100vw;text-align:center;padding:0.7rem 0;color:#64748b;font-size:0.98rem;position:fixed;bottom:0;left:0;background:#fff;border-top:1px solid #cbd5e1;z-index:10;">
+    Desenvolvido por Vitoria Gabriele
+  </footer>
+</body>
+</html>
