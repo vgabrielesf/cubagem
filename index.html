@@ -44,7 +44,7 @@
     }
     .form-content {
       flex: 1 1 0;
-      min-width: 0;
+      min-width: 340px; /* Garante espaço mínimo para os inputs */
     }
     .header {
       display: flex;
@@ -155,7 +155,37 @@
       from { opacity: 0; transform: translateY(20px);}
       to { opacity: 1; transform: translateY(0);}
     }
-    @media (max-width: 800px) {
+    @media (max-width: 850px) {
+      .container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.2rem;
+        padding: 1.2rem 0.5rem;
+        max-width: 99vw;
+      }
+      .form-content {
+        width: 100%;
+        min-width: 0;
+      }
+      .imagem-lateral {
+        width: 100%;
+        max-width: 100vw;
+        align-items: center;
+        justify-content: flex-end;
+        margin: 0;
+        padding: 0;
+      }
+      .imagem-lateral img {
+        width: 90vw;
+        max-width: 350px;
+        height: auto;
+        max-height: 30vh;
+        margin-top: 0;
+        margin-bottom: 0;
+        border-radius: 12px;
+      }
+    }
+    @media (max-width: 700px) {
       .container {
         flex-direction: column;
         align-items: stretch;
@@ -194,34 +224,28 @@
       }
     }
     .imagem-lateral {
-      flex: 0 0 380px;         /* aumenta a largura da lateral */
+      flex: 0 0 380px;
       max-width: 380px;
       display: flex;
       flex-direction: column;
-      align-items: flex-end;      /* Alinha à direita */
-      justify-content: flex-end;  /* Alinha para baixo */
+      align-items: flex-end;
+      justify-content: flex-start;
       gap: 1.2rem;
       height: 100%;
       padding: 0;
-      margin: 5px;         /* Adiciona 5px de margem em todos os lados */
+      margin: 5px;
       position: static;
     }
     .imagem-lateral img {
-      width: 400px;
-      max-width: 100%;
-      height: 400px;
+      width: 100%;
+      max-width: 380px;
+      height: auto;
       max-height: 420px;
       border-radius: 0 12px 12px 0;
       box-shadow: 0 2px 8px #0001;
       background: transparent;
       object-fit: contain;
-      margin-top: 100px; /* Espaço de 100px acima da imagem */
-    }
-    .imagem-lateral .resultado {
-      margin-top: 1.2rem;
-      width: 100%;
-      box-sizing: border-box;
-      text-align: center;
+      margin-top: 100px;
     }
     body.dark {
       --primary: #60a5fa;
@@ -359,7 +383,7 @@
       </form>
     </div>
     <div class="imagem-lateral">
-      <img src="mesadetrabalho.png" alt="Mesa de Trabalho Inox" />
+      <img src="mesadetrabalho.PNG" alt="Mesa de Trabalho Inox" />
     <div class="resultado" id="resultado" style="color:#2563eb;font-weight:bold;">Resultado</div>
     </div>
   </div>
