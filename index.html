@@ -274,6 +274,76 @@
       background: #fff;
       color: #23232b;
     }
+    /* Menu Hamburguer */
+    .menu-hamburguer-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    #menu-hamburguer {
+      background: none;
+      border: 1.5px solid var(--primary-dark); /* retângulo ao redor */
+      border-radius: 6px;
+      cursor: pointer;
+      padding: 0.18rem 0.32rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-left: 0.5rem;
+      margin-right: 0;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s;
+      height: 26px;
+      width: 30px;
+    }
+    .hamburguer-bar {
+      width: 18px;
+      height: 2.0px; /* menor espessura */
+      background: var(--primary-dark);
+      border-radius: 2px;
+      display: block;
+      transition: background 0.2s;
+    }
+    .menu-dropdown {
+      display: none;
+      position: absolute;
+      top: 38px;
+      left: 0;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 4px 16px #0002;
+      min-width: 170px;
+      z-index: 100;
+      padding: 0.3rem 0;
+    }
+    .menu-item {
+      padding: 0.7rem 1.1rem;
+      color: var(--primary-dark);
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .menu-item:hover {
+      background: #e0e7ef;
+    }
+    body.dark #menu-hamburguer {
+      border-color: var(--primary);
+    }
+    body.dark .hamburguer-bar {
+      background: var(--primary);
+    }
+    body.dark .menu-dropdown {
+      background: var(--card-bg);
+      border-color: var(--border);
+    }
+    body.dark .menu-item {
+      color: var(--primary);
+    }
+    body.dark .menu-item:hover {
+      background: #334155;
+    }
   </style>
 </head>
 <body>
@@ -281,7 +351,23 @@
     <div class="form-content">
       <div class="header">
         <img src="https://cdn-icons-png.flaticon.com/512/190/190411.png" alt="Mesa Inox">
-        <span class="header-title">Calculadora de Peso e Volume<br><span style="font-size:0.93rem;font-weight:400;color:var(--muted)">Mesa de Trabalho Inox</span></span>
+        <span class="header-title">
+          Calculadora de Peso e Volume<br>
+          <span style="font-size:0.93rem;font-weight:400;color:var(--muted);display:inline-flex;align-items:center;gap:0.5rem;">
+            Mesa de Trabalho Inox
+            <div class="menu-hamburguer-container" style="display:inline-flex;">
+              <button id="menu-hamburguer" aria-label="Abrir menu" type="button">
+                <span class="hamburguer-bar"></span>
+                <span class="hamburguer-bar"></span>
+                <span class="hamburguer-bar"></span>
+              </button>
+              <div class="menu-dropdown" id="menu-dropdown">
+                <div class="menu-item">Estante Superior</div>
+                <div class="menu-item">Prateleira Superior</div>
+              </div>
+            </div>
+          </span>
+        </span>
       </div>
       <form id="form" autocomplete="off">
         <fieldset>
@@ -488,6 +574,18 @@
       document.body.classList.toggle('dark');
       btn.textContent = document.body.classList.contains('dark') ? '☀️ Tema Claro' : '🌙 Tema Escuro';
     };
+
+    // Menu Hamburguer
+    const menuBtn = document.getElementById('menu-hamburguer');
+    const menuDropdown = document.getElementById('menu-dropdown');
+    menuBtn.onclick = function() {
+      menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
+    }
+    window.onclick = function(event) {
+      if (!event.target.closest('.menu-hamburguer-container')) {
+        menuDropdown.style.display = 'none';
+      }
+    }
   </script>
   <footer style="width:100vw;text-align:center;padding:0.7rem 0;color:#64748b;font-size:0.98rem;position:fixed;bottom:0;left:0;background:#fff;border-top:1px solid #cbd5e1;z-index:10;">
     Desenvolvido por Vitoria Gabriele
